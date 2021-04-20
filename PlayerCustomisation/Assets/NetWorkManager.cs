@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 
 
-public class NetWorkManager : MonoBehaviourPunCallbacks
+public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject Player;
@@ -45,6 +45,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
