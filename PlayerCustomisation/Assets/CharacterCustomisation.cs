@@ -77,8 +77,10 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void ModifyHairDown()
     {
-        if (HairIndex < Hair.Length ) 
-            HairIndex--; 
+        if (HairIndex < Hair.Length && HairIndex != 0) 
+            HairIndex--;
+        else if (HairIndex == 0)
+            HairIndex = Hair.Length - 1;
         else 
             HairIndex = 0; 
         ApplyModification(MODEL_DETAILS.HAIR_MODEL, HairIndex);
@@ -95,10 +97,13 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void ModifyBeardDown()
     {
-        if (BeardIndex < Beard.Length)
+        if (BeardIndex < Beard.Length && BeardIndex != 0)
             BeardIndex--;
+        else if (BeardIndex == 0)
+            BeardIndex = Beard.Length-1;
         else
             BeardIndex = 0;
+        Debug.Log(BeardIndex);
         ApplyModification(MODEL_DETAILS.BEARD_MODEL, BeardIndex);
     }
 
@@ -114,8 +119,10 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void ModifyOutfitDown()
     {
-        if (OutfitIndex < Outfit.Length)
+        if (OutfitIndex < Outfit.Length && OutfitIndex != 0)
             OutfitIndex--;
+        else if (OutfitIndex == 0)
+            OutfitIndex = Outfit.Length - 1;
         else
             OutfitIndex = 0;
         ApplyModification(MODEL_DETAILS.OUTFIT_MODEL, OutfitIndex);
@@ -132,8 +139,10 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void ModifyPropDown()
     {
-        if (PropIndex < Prop.Length)
+        if (PropIndex < Prop.Length && PropIndex != 0)
             PropIndex--;
+        else if (PropIndex == 0)
+            PropIndex = Prop.Length - 1;
         else
             PropIndex = 0;
         ApplyModification(MODEL_DETAILS.PROP_MODEL, PropIndex);
@@ -189,6 +198,7 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void SaveButton()
     {
+        Debug.Log("Saved");
         Save_Model = new Dictionary<MODEL_DETAILS, int>();
         Save_Model.Add(MODEL_DETAILS.HAIR_MODEL, HairIndex);
         Save_Model.Add(MODEL_DETAILS.BEARD_MODEL, BeardIndex);
