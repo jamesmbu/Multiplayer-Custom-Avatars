@@ -21,10 +21,14 @@ public class PerspectiveChanger : MonoBehaviour
 
     // Make an array of the struct for the editor
     public CameraRef[] CameraRefs;
+
+    [SerializeField]
+    private Canvas NetworkCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetCameraPerspective(CameraSetting.Menu);
     }
 
     // Update is called once per frame
@@ -39,13 +43,17 @@ public class PerspectiveChanger : MonoBehaviour
         {
             if (camera.Type == cameraSetting) // if the type matches with the desired perspective to be set...
             {
-                camera.Camera.gameObject.SetActive(true);
-
+                camera.Camera.gameObject.SetActive(true); // turn on the appropriate camera
+                NetworkCanvas.GetComponent<Canvas>().worldCamera = camera.Camera; // get the network GUI, and associate the new camera setting with it
+                NetworkCanvas.GetComponent<Canvas>().planeDistance = 1; // set the plane distance- to keep the UI in front of everything
             }
             else
             {
+                if (cameraSetting == CameraSetting.Menu && camera.Type == CameraSetting.CharacterPortrait) continue; // Menu and Preview of customised player activate together
                 camera.Camera.gameObject.SetActive(false);
             }
         }
+
+        
     }
 }
