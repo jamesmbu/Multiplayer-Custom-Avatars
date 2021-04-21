@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 public class CharacterCustomisation : MonoBehaviourPun
 {
-    enum MODEL_DETAILS
+    public enum MODEL_DETAILS
     {
         HAIR_MODEL,
         BEARD_MODEL,
@@ -59,7 +59,7 @@ public class CharacterCustomisation : MonoBehaviourPun
     int skinTextureIndex = 0;
     int BeardTexture = 0;
 
-    Dictionary<MODEL_DETAILS, int> Save_Model;
+    public Dictionary<MODEL_DETAILS, int> Save_Model;
 
     bool IndexCheck(int index, GameObject[] arraylength)
     {
@@ -148,6 +148,14 @@ public class CharacterCustomisation : MonoBehaviourPun
         ApplyModification(MODEL_DETAILS.PROP_MODEL, PropIndex);
     }
 
+    public void ApplySavedAppearance(Dictionary<MODEL_DETAILS, int> _Save_Model) // For initialising appearance; for use if customisation has already happened
+    {
+        Save_Model = _Save_Model;
+        ApplyModification(MODEL_DETAILS.HAIR_MODEL, _Save_Model[MODEL_DETAILS.HAIR_MODEL]);
+        ApplyModification(MODEL_DETAILS.BEARD_MODEL, _Save_Model[MODEL_DETAILS.BEARD_MODEL]);
+        ApplyModification(MODEL_DETAILS.OUTFIT_MODEL, _Save_Model[MODEL_DETAILS.OUTFIT_MODEL]);
+        ApplyModification(MODEL_DETAILS.PROP_MODEL, _Save_Model[MODEL_DETAILS.PROP_MODEL]);
+    }
     [PunRPC]void ApplyModification(MODEL_DETAILS details, int id)
     {
         if (photonView.IsMine)

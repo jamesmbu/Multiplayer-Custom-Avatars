@@ -20,8 +20,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
 
-
+    [Tooltip("Prefab to spawn as the player")]
     public GameObject player;
+    [Tooltip("Reference to the GameObject of the player which is previewed on the customisation menu")]
+    public GameObject playerPreview;
 
     // Start is called before the first frame update
     void Start()
@@ -94,10 +96,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         playerName.gameObject.SetActive(false);
         buttonLeave.gameObject.SetActive(true);
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
-        PhotonNetwork.Instantiate(player.name,
+        
+
+        // Instantiate new player
+        GameObject newPlayer = PhotonNetwork.Instantiate(player.name,
             new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)),
             Quaternion.Euler(0, Random.Range(-180, 180), 0)
             , 0);
+        // Customise the newly spawned player - send the saved settings from the preview to the new player
+        CharacterCustomisation newPlayerCustomiser = newPlayer.GetComponent<CharacterCustomisation>();
+        newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
+        // Hide the preview version of the player
+        Destroy(playerPreview); // simply destroyed for now, must change later through positioning
 
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

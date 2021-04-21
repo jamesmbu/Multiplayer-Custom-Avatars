@@ -620,7 +620,7 @@ MonoBehaviour:
   - Type: 2
     Camera: {fileID: 963194227}
   - Type: 3
-    Camera: {fileID: 0}
+    Camera: {fileID: 2066999683}
 --- !u!4 &1061788034
 Transform:
   m_ObjectHideFlags: 0
@@ -948,7 +948,8 @@ MonoBehaviour:
   buttonLeave: {fileID: 1476138429}
   playerName: {fileID: 1249326634}
   maxPlayersPerRoom: 4
-  player: {fileID: 142814580}
+  player: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+  playerPreview: {fileID: 142814580}
 --- !u!4 &2064151554
 Transform:
   m_ObjectHideFlags: 0
@@ -1001,7 +1002,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066999681}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1057,7 +1058,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5301776205921315781, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
       propertyPath: m_Name
-      value: CanvasPlayerCustomise
+      value: CanvasPlayerCustomiser
       objectReference: {fileID: 0}
     - target: {fileID: 5301776205921315782, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
       propertyPath: m_Camera
@@ -1406,7 +1407,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Name
-      value: Custom simple human_prefab
+      value: Preview of Custom simple human_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: m_TagString
+      value: PlayerPreview
       objectReference: {fileID: 0}
     - target: {fileID: 8894916820800445019, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: Canvas
