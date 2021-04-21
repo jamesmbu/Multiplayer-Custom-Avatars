@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private PerspectiveChanger perspectiveChanger;
     [SerializeField] 
     private Canvas customiserCanvas;
     [SerializeField]
@@ -91,7 +93,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         customiserCanvas.gameObject.SetActive(false);
         playerName.gameObject.SetActive(false);
         buttonLeave.gameObject.SetActive(true);
-
+        perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
         PhotonNetwork.Instantiate(player.name,
             new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)),
             Quaternion.Euler(0, Random.Range(-180, 180), 0)
