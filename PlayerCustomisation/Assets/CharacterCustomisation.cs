@@ -198,13 +198,13 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void SaveButton()
     {
-        Debug.Log("Saved");
         Save_Model = new Dictionary<MODEL_DETAILS, int>();
         Save_Model.Add(MODEL_DETAILS.HAIR_MODEL, HairIndex);
         Save_Model.Add(MODEL_DETAILS.BEARD_MODEL, BeardIndex);
         Save_Model.Add(MODEL_DETAILS.OUTFIT_MODEL, OutfitIndex);
         Save_Model.Add(MODEL_DETAILS.PROP_MODEL, PropIndex);
-        GameObject.Destroy(Canvas);
+        //GameObject.Destroy(Canvas);
+        // Canvas will be hidden in the NetworkManager 'OnJoinedRoom'
     }
     // Start is called before the first frame update
     void Start()
