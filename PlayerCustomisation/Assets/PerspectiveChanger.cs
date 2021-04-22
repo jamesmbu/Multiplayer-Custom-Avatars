@@ -37,6 +37,10 @@ public class PerspectiveChanger : MonoBehaviour
         
     }
 
+    public void OpenCustomiser()
+    {
+
+    }
     public void SetCameraPerspective(CameraSetting cameraSetting)
     {
         foreach (CameraRef camera in CameraRefs) // go through each camera type programmed into the editor
@@ -49,7 +53,12 @@ public class PerspectiveChanger : MonoBehaviour
             }
             else
             {
-                if (cameraSetting == CameraSetting.Menu && camera.Type == CameraSetting.CharacterPortrait) continue; // Menu and Preview of customised player activate together
+                if (cameraSetting == CameraSetting.Menu 
+                    && camera.Type == CameraSetting.CharacterPortrait) 
+                {
+                    camera.Camera.gameObject.SetActive(true);
+                    continue; // Menu and Preview of customised player activate together
+                }
                 camera.Camera.gameObject.SetActive(false);
             }
         }

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Client.Photon.StructWrapping;
+using Photon.Pun;
 using UnityEngine;
 
-public class TopDownCharacterMovement : MonoBehaviour
+public class TopDownCharacterMovement : MonoBehaviourPun
 {
     private InputHandler _input;
     [SerializeField] private float moveSpeed;
@@ -26,6 +27,10 @@ public class TopDownCharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
 
         // Move in direction of aim

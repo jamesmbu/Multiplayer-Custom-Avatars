@@ -69,6 +69,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void Leave()
     {
         PhotonNetwork.LeaveRoom();
+        customiserCanvas.gameObject.SetActive(true);
+        playerName.gameObject.SetActive(true);
+        buttonLeave.gameObject.SetActive(false);
+        perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.Menu);
     }
     public override void OnConnectedToMaster()
     {
@@ -111,7 +115,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
         // Hide the preview version of the player
-        Destroy(playerPreview); // simply destroyed for now, must change later through positioning
+        
+        
 
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
