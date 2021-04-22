@@ -95,16 +95,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         customiserCanvas.gameObject.SetActive(false);
         playerName.gameObject.SetActive(false);
         buttonLeave.gameObject.SetActive(true);
+        
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
         
 
         // Instantiate new player
         GameObject newPlayer = PhotonNetwork.Instantiate(player.name,
-            new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)),
+            new Vector3(Random.Range(-15, 15), 1, Random.Range(15, 35)),
             Quaternion.Euler(0, Random.Range(-180, 180), 0)
             , 0);
         // Customise the newly spawned player - send the saved settings from the preview to the new player
+        playerPreview = GameObject.FindGameObjectWithTag("PlayerPreview");
+        
         CharacterCustomisation newPlayerCustomiser = newPlayer.GetComponent<CharacterCustomisation>();
+
         newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
         // Hide the preview version of the player
         Destroy(playerPreview); // simply destroyed for now, must change later through positioning

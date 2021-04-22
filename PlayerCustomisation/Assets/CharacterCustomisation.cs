@@ -160,6 +160,7 @@ public class CharacterCustomisation : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
+            
             switch (details)
             {
                 case MODEL_DETAILS.HAIR_MODEL:
