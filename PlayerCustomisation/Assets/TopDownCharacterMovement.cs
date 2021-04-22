@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon.StructWrapping;
 using UnityEngine;
 
 public class TopDownCharacterMovement : MonoBehaviour
 {
     private InputHandler _input;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Camera TopDownCamera;
     void Awake()
     {
         _input = GetComponent<InputHandler>();
@@ -13,7 +15,10 @@ public class TopDownCharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (TopDownCamera == null)
+        {
+            TopDownCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
     }
 
     // Update is called once per frame
@@ -29,6 +34,10 @@ public class TopDownCharacterMovement : MonoBehaviour
     private void MoveToTarget(Vector3 targetVector)
     {
         var speed = moveSpeed * Time.deltaTime;
+
+        targetVector = Quaternion.Euler(0, 
+            TopDownCamera.gameObject.transform.eulerAngles.y,
+            0) * targetVector; // match top-down camera rotation
 
         var targetPosition = transform.position + targetVector * speed;
 

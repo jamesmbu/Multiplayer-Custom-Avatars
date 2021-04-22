@@ -2249,6 +2249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
+  TopDownCamera: {fileID: 0}
 --- !u!1 &8894916820845332554
 GameObject:
   m_ObjectHideFlags: 0
