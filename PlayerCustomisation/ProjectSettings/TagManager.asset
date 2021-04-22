@@ -9,6 +9,7 @@ TagManager:
   - pickuppoint
   - waypoint
   - PlayerPreview
+  - PerspectiveManager
   layers:
   - Default
   - TransparentFX

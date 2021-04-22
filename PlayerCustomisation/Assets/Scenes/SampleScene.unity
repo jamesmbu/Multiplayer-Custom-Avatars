@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 1061788033}
   m_Layer: 0
   m_Name: PerspectiveManager
-  m_TagString: Untagged
+  m_TagString: PerspectiveManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1328,6 +1328,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5301776207492246916, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -13.000122
+      objectReference: {fileID: 0}
     - target: {fileID: 5301776207592547756, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1406,6 +1410,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5299063879163855578, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858154520879500207, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}

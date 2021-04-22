@@ -37,10 +37,22 @@ public class PerspectiveChanger : MonoBehaviour
         
     }
 
-    public void OpenCustomiser()
+    public void SetCameraValue(CameraSetting cameraSetting, Camera cameraRef)
     {
+        int indexToUse = 0;
+        for (var index = 0; index < CameraRefs.Length; index++)
+        {
+            CameraRef camera = CameraRefs[index];
+            if (camera.Type == cameraSetting) // if this is the setting the programmer wants to set
+            {
+                indexToUse = index;
+                break;
+            }
+        }
 
+        CameraRefs[indexToUse].Camera = cameraRef;
     }
+
     public void SetCameraPerspective(CameraSetting cameraSetting)
     {
         foreach (CameraRef camera in CameraRefs) // go through each camera type programmed into the editor
@@ -48,18 +60,22 @@ public class PerspectiveChanger : MonoBehaviour
             if (camera.Type == cameraSetting) // if the type matches with the desired perspective to be set...
             {
                 camera.Camera.gameObject.SetActive(true); // turn on the appropriate camera
+                camera.Camera.enabled = true;
                 NetworkCanvas.GetComponent<Canvas>().worldCamera = camera.Camera; // get the network GUI, and associate the new camera setting with it
                 NetworkCanvas.GetComponent<Canvas>().planeDistance = 1; // set the plane distance- to keep the UI in front of everything
             }
             else
             {
+                // Enable the Preview Character if Menu is set
                 if (cameraSetting == CameraSetting.Menu 
                     && camera.Type == CameraSetting.CharacterPortrait) 
                 {
                     camera.Camera.gameObject.SetActive(true);
+                    camera.Camera.enabled = true;
                     continue; // Menu and Preview of customised player activate together
                 }
-                camera.Camera.gameObject.SetActive(false);
+                //camera.Camera.gameObject.SetActive(false);
+                if (camera.Camera)camera.Camera.enabled = false;
             }
         }
 

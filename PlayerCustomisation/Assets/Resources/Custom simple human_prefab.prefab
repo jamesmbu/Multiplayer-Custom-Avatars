@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5334028696636165136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.112, y: 1.489, z: 0}
+  m_LocalPosition: {x: 0.112, y: 1.654, z: 0.287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8894916821130713901}
@@ -2081,6 +2081,8 @@ GameObject:
   - component: {fileID: 4542895023959833296}
   - component: {fileID: 5299063879163855578}
   - component: {fileID: 4955117086220411393}
+  - component: {fileID: 7858154520879500207}
+  - component: {fileID: 3844774234754659258}
   m_Layer: 3
   m_Name: Custom simple human_prefab
   m_TagString: Untagged
@@ -2267,6 +2269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e72aba550b4f241ab3ddb2615e853c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perspectiveChanger: {fileID: 0}
 --- !u!114 &4955117086220411393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2282,6 +2285,38 @@ MonoBehaviour:
   moveSpeed: 8
   TopDownCamera: {fileID: 0}
   rotateSpeed: 15
+--- !u!143 &7858154520879500207
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894916820800445017}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3844774234754659258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894916820800445017}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f451a9f3eff7a4c8a1ea0d4b521b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstPersonCamera: {fileID: 4638448260626711624}
+  mouseSensitivity: 3.5
 --- !u!1 &8894916820845332554
 GameObject:
   m_ObjectHideFlags: 0
@@ -5636,7 +5671,7 @@ GameObject:
   - component: {fileID: 8894916822058504080}
   - component: {fileID: 8894916822058504081}
   m_Layer: 3
-  m_Name: Camera
+  m_Name: FrontalCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
