@@ -150,16 +150,37 @@ public class CharacterCustomisation : MonoBehaviourPun
 
     public void ApplySavedAppearance(Dictionary<MODEL_DETAILS, int> _Save_Model) // For initialising appearance; for use if customisation has already happened
     {
-        Save_Model = _Save_Model;
-        ApplyModification(MODEL_DETAILS.HAIR_MODEL, _Save_Model[MODEL_DETAILS.HAIR_MODEL]);
-        ApplyModification(MODEL_DETAILS.BEARD_MODEL, _Save_Model[MODEL_DETAILS.BEARD_MODEL]);
-        ApplyModification(MODEL_DETAILS.OUTFIT_MODEL, _Save_Model[MODEL_DETAILS.OUTFIT_MODEL]);
-        ApplyModification(MODEL_DETAILS.PROP_MODEL, _Save_Model[MODEL_DETAILS.PROP_MODEL]);
-    }
-    [PunRPC]void ApplyModification(MODEL_DETAILS details, int id)
-    {
         if (photonView.IsMine)
         {
+            Save_Model = _Save_Model;
+
+            /*ApplyModification(MODEL_DETAILS.HAIR_MODEL, _Save_Model[MODEL_DETAILS.HAIR_MODEL]);
+            ApplyModification(MODEL_DETAILS.BEARD_MODEL, _Save_Model[MODEL_DETAILS.BEARD_MODEL]);
+            ApplyModification(MODEL_DETAILS.OUTFIT_MODEL, _Save_Model[MODEL_DETAILS.OUTFIT_MODEL]);
+            ApplyModification(MODEL_DETAILS.PROP_MODEL, _Save_Model[MODEL_DETAILS.PROP_MODEL]);*/
+            
+            // Broadcast appearance changes across all remote players (and the local instance)
+            photonView.RPC("ApplyModification", RpcTarget.AllBuffered,
+                MODEL_DETAILS.HAIR_MODEL, _Save_Model[MODEL_DETAILS.HAIR_MODEL]);
+
+            photonView.RPC("ApplyModification", RpcTarget.AllBuffered,
+                MODEL_DETAILS.BEARD_MODEL, _Save_Model[MODEL_DETAILS.BEARD_MODEL]);
+            
+            photonView.RPC("ApplyModification", RpcTarget.AllBuffered,
+                            MODEL_DETAILS.OUTFIT_MODEL, _Save_Model[MODEL_DETAILS.OUTFIT_MODEL]);
+           
+            photonView.RPC("ApplyModification", RpcTarget.AllBuffered,
+                MODEL_DETAILS.PROP_MODEL, _Save_Model[MODEL_DETAILS.PROP_MODEL]);
+
+            
+        }
+        
+    }
+
+    
+    [PunRPC] void ApplyModification(MODEL_DETAILS details, int id)
+    {
+        
             
             switch (details)
             {
@@ -202,7 +223,7 @@ public class CharacterCustomisation : MonoBehaviourPun
 
                 default: break;
             }
-        }
+        
     }
 
     public void SaveButton()

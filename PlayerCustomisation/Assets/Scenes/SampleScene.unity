@@ -1361,6 +1361,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PlayerPreview
       objectReference: {fileID: 0}
+    - target: {fileID: 8894916820800445018, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894916820800445018, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8894916820800445019, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: Canvas
       value: 
