@@ -102,7 +102,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // Instantiate new player
         GameObject newPlayer = PhotonNetwork.Instantiate(player.name,
             new Vector3(Random.Range(-15, 15), 1, Random.Range(15, 35)),
-            Quaternion.Euler(0, Random.Range(-180, 180), 0)
+            Quaternion.Euler(0, 0/*Random.Range(-180, 180)*/, 0)
             , 0);
         // Customise the newly spawned player - send the saved settings from the preview to the new player
         playerPreview = GameObject.FindGameObjectWithTag("PlayerPreview");

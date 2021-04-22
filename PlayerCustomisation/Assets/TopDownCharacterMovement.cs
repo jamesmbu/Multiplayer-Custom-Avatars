@@ -8,6 +8,8 @@ public class TopDownCharacterMovement : MonoBehaviour
     private InputHandler _input;
     [SerializeField] private float moveSpeed;
     [SerializeField] private Camera TopDownCamera;
+    [SerializeField] private float rotateSpeed;
+
     void Awake()
     {
         _input = GetComponent<InputHandler>();
@@ -27,11 +29,27 @@ public class TopDownCharacterMovement : MonoBehaviour
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
 
         // Move in direction of aim
-        MoveToTarget(targetVector);
+        var movementVector = MoveToTarget(targetVector);
         // Rotate in direction of movement
+        RotateToMovement(movementVector);
     }
 
-    private void MoveToTarget(Vector3 targetVector)
+    private void RotateToMovement(Vector3 movementVector)
+    {
+        if (movementVector.magnitude == 0) { return; }
+
+        /*gameObj.transform.eulerAngles = new Vector3(
+            gameObj.transform.eulerAngles.x,
+            gameObj.transform.eulerAngles.y + 180,
+            gameObj.transform.eulerAngles.z
+        );*/
+
+        Quaternion rotation = Quaternion.LookRotation(movementVector);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed);
+        
+    }
+
+    private Vector3 MoveToTarget(Vector3 targetVector)
     {
         var speed = moveSpeed * Time.deltaTime;
 
@@ -42,5 +60,6 @@ public class TopDownCharacterMovement : MonoBehaviour
         var targetPosition = transform.position + targetVector * speed;
 
         transform.position = targetPosition;
+        return targetVector;
     }
 }
