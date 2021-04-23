@@ -2082,6 +2082,7 @@ GameObject:
   - component: {fileID: 4955117086220411393}
   - component: {fileID: 7858154520879500207}
   - component: {fileID: 3844774234754659258}
+  - component: {fileID: 3025357959357422741}
   m_Layer: 3
   m_Name: Custom simple human_prefab
   m_TagString: Untagged
@@ -2234,12 +2235,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8894916820800445017}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.39684087
-  m_Height: 1.9214475
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: -0.039113343, y: 0.925408, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5299063879163855578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,6 +2308,20 @@ MonoBehaviour:
   moveSmoothTime: 0.2
   mouseSmoothTime: 0.1
   lockCursor: 1
+--- !u!114 &3025357959357422741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894916820800445017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1e07b95dff14a34da5e3060acb5a688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  scoreTextRef: {fileID: 0}
 --- !u!1 &8894916820845332554
 GameObject:
   m_ObjectHideFlags: 0

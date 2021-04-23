@@ -17,22 +17,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] 
     private Canvas customiserCanvas;
     [SerializeField]
-    private Text nickname, status, room, players;
-    [SerializeField]
-    private Button buttonPlay, buttonLeave;
-    [SerializeField]
-    private InputField playerName;
-    [SerializeField]
-    private byte maxPlayersPerRoom = 4;
+    private InputField playerNameInput;
+    [Header("Game Settings")]
+    [SerializeField] private byte maxPlayersPerRoom = 4;
+    [SerializeField] [Tooltip("Score required by a player to end the match")] private int MatchScore = 20;
 
-    [SerializeField] private CountdownTimer countdownTimer = null;
+    [Header("GameObject References")]
 
     [Tooltip("Prefab to spawn as the player")]
     public GameObject player;
     [Tooltip("Reference to the GameObject of the player which is previewed on the customisation menu")]
     public GameObject playerPreview;
-
     [SerializeField] private SpawnObjects Gameplay_ObjectSpawner;
+
+    [Header("Text Fields")] 
+    [SerializeField] private Text nickname;
+    [SerializeField] private Text status;
+    [SerializeField] private Text room;
+    [SerializeField] private Text players;
+    [SerializeField] public Text scoreText;
+
+    [Header("Button References")] 
+    [SerializeField] private Button buttonPlay;
+    [SerializeField] private Button buttonLeave;
 
     #endregion
 
@@ -42,7 +49,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         status.text = "Connecting...";
         buttonPlay.gameObject.SetActive(false);
         buttonLeave.gameObject.SetActive(false);
-        playerName.gameObject.SetActive(false);
+        playerNameInput.gameObject.SetActive(false);
 
         if (!PhotonNetwork.IsConnected)
             PhotonNetwork.ConnectUsingSettings();
@@ -73,16 +80,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public void Play()
     {
-        PlayerPrefs.SetString("PlayerName", playerName.text);
-        PhotonNetwork.NickName = playerName.text;
+        PlayerPrefs.SetString("PlayerName", playerNameInput.text);
+        PhotonNetwork.NickName = playerNameInput.text;
         PhotonNetwork.JoinRandomRoom();
     }
     public void Leave()
     {
         PhotonNetwork.LeaveRoom();
+        // Make GUI adjustments
         customiserCanvas.gameObject.SetActive(true);
-        playerName.gameObject.SetActive(true);
+        playerNameInput.gameObject.SetActive(true);
         buttonLeave.gameObject.SetActive(false);
+        scoreText.transform.parent.gameObject.SetActive(false);
+
+        // Change the view of the player
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.Menu);
     }
     public override void OnConnectedToMaster()
@@ -90,9 +101,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("OnConnectedToMaster was called by PUN.");
         status.text = "Connected to Photon.";
         buttonPlay.gameObject.SetActive(true);
-        playerName.gameObject.SetActive(true);
+        playerNameInput.gameObject.SetActive(true);
         buttonLeave.gameObject.SetActive(false);
-        playerName.text = PlayerPrefs.GetString("PlayerName");
+        playerNameInput.text = PlayerPrefs.GetString("PlayerName");
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -108,9 +119,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         status.text = "Yep, you managed to join a room!";
         //buttonPlay.gameObject.SetActive(false);
         customiserCanvas.gameObject.SetActive(false);
-        playerName.gameObject.SetActive(false);
+        playerNameInput.gameObject.SetActive(false);
         buttonLeave.gameObject.SetActive(true);
-        
+        scoreText.transform.parent.gameObject.SetActive(true);
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
         
 
@@ -145,5 +156,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         status.text = otherPlayer.NickName + " has just left.";
     }
 
+    public void OnPlayerScore(int score)
+    {
+        // update the score display text
+        scoreText.text = score.ToString();
+        // check if the score is enough to end the match
+        if (score >= MatchScore)
+        {
+            Debug.LogError("you win :D !!!");
+        }
+    }
     
 }

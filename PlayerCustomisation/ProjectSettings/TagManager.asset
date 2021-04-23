@@ -10,6 +10,7 @@ TagManager:
   - waypoint
   - PlayerPreview
   - PerspectiveManager
+  - Collectable
   layers:
   - Default
   - TransparentFX

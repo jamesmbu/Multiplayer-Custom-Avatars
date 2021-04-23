@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviourPun
 {
     [SerializeField] private GameObject ObjectToSpawn;
-
+    public int spawnedCounter;
     private float xPos;
 
     private float zPos;
@@ -14,9 +14,15 @@ public class SpawnObjects : MonoBehaviourPun
     private float X_Radius = 0;
     private float Y_Radius = 0;
     private float Z_Radius = 0;
+    [Header("Spawn Interval Settings")]
+    [Tooltip("Shortest interval time for spawning")]
+    [SerializeField] private float IntervalFloor = 2f;
+    [Tooltip("Longest interval time for spawning")]
+    [SerializeField] private float IntervalCeiling = 2f;
+
 
     private BoxCollider SpawnBounds;
-    public int spawnedCounter;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -54,9 +60,7 @@ public class SpawnObjects : MonoBehaviourPun
                     xPos, zPos
                     );
 
-               
-
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(Random.Range(IntervalFloor,IntervalCeiling));
                 spawnedCounter += 1;
             }
         }
@@ -65,6 +69,7 @@ public class SpawnObjects : MonoBehaviourPun
     [PunRPC] void InstantiateObjectCall(float x, float z)
     {
         GameObject newObject = Instantiate(ObjectToSpawn, new Vector3(x, 1, z),
-            Quaternion.identity);
+            Quaternion.identity,
+            transform);
     }
 }
