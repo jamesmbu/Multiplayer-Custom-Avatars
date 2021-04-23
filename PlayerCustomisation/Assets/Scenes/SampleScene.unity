@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1474866657}
     m_Modifications:
+    - target: {fileID: 155784079137290596, guid: 6577f2b92b4684d4db9b453de3758783, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1113378979928627799, guid: 6577f2b92b4684d4db9b453de3758783, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -661,7 +665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890548135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.12, y: -13.47, z: 17.38}
+  m_LocalPosition: {x: -12.02, y: -13.47, z: 17.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916709145}
@@ -1338,6 +1342,7 @@ MonoBehaviour:
   room: {fileID: 788352772}
   players: {fileID: 770250079}
   scoreText: {fileID: 312133712}
+  bigStatusText: {fileID: 0}
   buttonPlay: {fileID: 685664453}
   buttonLeave: {fileID: 1476138429}
 --- !u!4 &2064151554
