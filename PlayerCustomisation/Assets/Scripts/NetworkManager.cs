@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 using UnityEngine.UI;
+
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    #region Fields
     [SerializeField]
     private PerspectiveChanger perspectiveChanger;
     [SerializeField] 
@@ -20,10 +25,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
 
+    [SerializeField] private CountdownTimer countdownTimer = null;
+
     [Tooltip("Prefab to spawn as the player")]
     public GameObject player;
     [Tooltip("Reference to the GameObject of the player which is previewed on the customisation menu")]
     public GameObject playerPreview;
+
+    public int gameMatchDurationSeconds = 30;
+    public int gameMatchDuration_Tracker;
+    [SerializeField] private Text TimerUI;
+    private Coroutine timerCoroutine;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +120,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // Instantiate new player
         GameObject newPlayer = PhotonNetwork.Instantiate(player.name,
             new Vector3(Random.Range(-15, 15), 1, Random.Range(15, 35)),
-            Quaternion.Euler(0, 0/*Random.Range(-180, 180)*/, 0)
+            Quaternion.Euler(0, 180/*Random.Range(-180, 180)*/, 0)
             , 0);
         // Customise the newly spawned player - send the saved settings from the preview to the new player
         playerPreview = GameObject.FindGameObjectWithTag("PlayerPreview");
@@ -122,10 +136,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         status.text = newPlayer.NickName + " has just entered.";
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1 && PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Multiple players present. Starting game...");
+            
+        }
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         status.text = otherPlayer.NickName + " has just left.";
     }
+
+    
 }

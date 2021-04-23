@@ -2269,6 +2269,7 @@ MonoBehaviour:
   TopDownCamera: {fileID: 0}
   rotateSpeed: 15
   gravity: -13
+  moveSmoothTime: 0.2
 --- !u!143 &7858154520879500207
 CharacterController:
   m_ObjectHideFlags: 0
