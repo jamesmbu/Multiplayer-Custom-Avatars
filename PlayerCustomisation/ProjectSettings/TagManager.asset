@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - stealingpoint
+  - sittingpoint
+  - pickuppoint
+  - waypoint
+  - PlayerPreview
+  - PerspectiveManager
+  - Collectable
   layers:
   - Default
   - TransparentFX
