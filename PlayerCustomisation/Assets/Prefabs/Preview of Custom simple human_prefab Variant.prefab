@@ -25,19 +25,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4955117086220411393, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5299063879163855578, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7858154520879500207, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_Name
-      value: Preview of Custom simple human_prefab
+      value: Preview of Custom simple human_prefab Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_TagString

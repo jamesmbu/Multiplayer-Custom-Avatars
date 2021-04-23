@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class SpawnObjects : MonoBehaviour
+public class SpawnObjects : MonoBehaviourPun
 {
     [SerializeField] private GameObject ObjectToSpawn;
 
@@ -42,16 +43,28 @@ public class SpawnObjects : MonoBehaviour
 
     IEnumerator SpawnEvent()
     {
-        while (true)
+        if (photonView.IsMine)
         {
-            xPos = transform.position.x + Random.Range(X_Radius*-1, X_Radius);
-            zPos = transform.position.z + Random.Range(Z_Radius*-1, Z_Radius);
+            while (true)
+            {
+                xPos = transform.position.x + Random.Range(X_Radius*-1, X_Radius);
+                zPos = transform.position.z + Random.Range(Z_Radius*-1, Z_Radius);
+                
+                photonView.RPC("InstantiateObjectCall", RpcTarget.AllBuffered, 
+                    xPos, zPos
+                    );
 
-            GameObject newObject = Instantiate(ObjectToSpawn, new Vector3(xPos, 1, zPos),
-                Quaternion.identity);
+               
 
-            yield return new WaitForSeconds(2f);
-            spawnedCounter += 1;
+                yield return new WaitForSeconds(2f);
+                spawnedCounter += 1;
+            }
         }
+    }
+
+    [PunRPC] void InstantiateObjectCall(float x, float z)
+    {
+        GameObject newObject = Instantiate(ObjectToSpawn, new Vector3(x, 1, z),
+            Quaternion.identity);
     }
 }

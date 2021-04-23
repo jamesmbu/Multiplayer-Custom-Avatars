@@ -32,10 +32,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Tooltip("Reference to the GameObject of the player which is previewed on the customisation menu")]
     public GameObject playerPreview;
 
-    public int gameMatchDurationSeconds = 30;
-    public int gameMatchDuration_Tracker;
-    [SerializeField] private Text TimerUI;
-    private Coroutine timerCoroutine;
+    [SerializeField] private SpawnObjects Gameplay_ObjectSpawner;
 
     #endregion
 
@@ -139,7 +136,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1 && PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Multiple players present. Starting game...");
-            
+            Gameplay_ObjectSpawner.enabled = true;
         }
     }
 
