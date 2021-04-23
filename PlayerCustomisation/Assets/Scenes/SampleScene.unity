@@ -810,6 +810,7 @@ GameObject:
   - component: {fileID: 1526656638}
   - component: {fileID: 1526656637}
   - component: {fileID: 1526656636}
+  - component: {fileID: 1526656640}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -894,6 +895,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1526656640
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526656635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!223 &1874928995 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 1113378980515804318, guid: 6577f2b92b4684d4db9b453de3758783, type: 3}
@@ -1401,6 +1415,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 822053449085394730, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844774234754659258, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4542895023959833296, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -1515,4 +1537,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1275941744564814231, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+    - {fileID: 1861393406226112749, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+    - {fileID: 6957561423999407875, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
