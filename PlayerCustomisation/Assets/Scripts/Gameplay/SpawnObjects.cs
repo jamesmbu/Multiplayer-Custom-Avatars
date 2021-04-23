@@ -39,7 +39,7 @@ public class SpawnObjects : MonoBehaviourPun
 
     void OnDisable()
     {
-        StopCoroutine(SpawnEvent());
+        StopAllCoroutines();
     }
     // Update is called once per frame
     void Update()

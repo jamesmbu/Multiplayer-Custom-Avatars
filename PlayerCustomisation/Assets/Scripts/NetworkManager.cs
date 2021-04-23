@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using UnityEditor;
 using UnityEngine.UI;
 
 
@@ -18,8 +19,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Canvas customiserCanvas;
     [SerializeField]
     private InputField playerNameInput;
+    private bool matchInProgress = false;
+
     [Header("Game Settings")]
     [SerializeField] private byte maxPlayersPerRoom = 4;
+    [SerializeField] [Tooltip("Number of players required for game to start")] private int StartMatchRequirement = 2;
     [SerializeField] [Tooltip("Score required by a player to end the match")] private int MatchScore = 20;
 
     [Header("GameObject References")]
@@ -36,6 +40,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private Text room;
     [SerializeField] private Text players;
     [SerializeField] public Text scoreText;
+    [SerializeField] public Text bigStatusText;
 
     [Header("Button References")] 
     [SerializeField] private Button buttonPlay;
@@ -93,6 +98,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         buttonLeave.gameObject.SetActive(false);
         scoreText.transform.parent.gameObject.SetActive(false);
 
+        // Reset score
+        scoreText.text = 0.ToString();
+
         // Change the view of the player
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.Menu);
     }
@@ -144,16 +152,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         status.text = newPlayer.NickName + " has just entered.";
-        if (PhotonNetwork.CurrentRoom.PlayerCount > 1 && PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= StartMatchRequirement && PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("Multiple players present. Starting game...");
+            Debug.Log("Starting game...");
+            matchInProgress = true;
             Gameplay_ObjectSpawner.enabled = true;
+            
         }
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         status.text = otherPlayer.NickName + " has just left.";
+        // Win by "last one standing"
+        if (matchInProgress && PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        {
+            status.text = otherPlayer.NickName + " has just left. You win by default!";
+            matchInProgress = false;
+            Gameplay_ObjectSpawner.enabled = false;
+            //Gameplay_ObjectSpawner.
+        }
     }
 
     public void OnPlayerScore(int score)
@@ -163,8 +181,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // check if the score is enough to end the match
         if (score >= MatchScore)
         {
-            Debug.LogError("you win :D !!!");
+            status.text = "You win!";
+            //scoreText.GetComponent<TemporaryOnScreen>().ShowTempText("You Win!");
+            matchInProgress = false;
+            Gameplay_ObjectSpawner.enabled = false;
         }
     }
-    
+
 }
