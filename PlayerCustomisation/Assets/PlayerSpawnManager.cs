@@ -5,8 +5,19 @@ using UnityEngine;
 public class PlayerSpawnManager : MonoBehaviour
 {
     public static PlayerSpawnManager instance;
+    //public static PlayerSpawnManager instance;
     PlayerSpawnpoints[] points;
+   public delegate void SpawnDelegate();
+   public event SpawnDelegate PlayerSpawnedEvent;
 
+
+    public void CallEventPLayerSpawn()
+    {
+        if(PlayerSpawnedEvent != null)
+        {
+            PlayerSpawnedEvent();
+        }
+    }
     private void Awake()
     {
         instance = this;
@@ -15,7 +26,12 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public Transform GetTransform()
     {
-        return points[Random.Range(0, points.Length)].transform;
+        PlayerSpawnpoints thisPoint = points[Random.Range(0, points.Length)];
+        if (thisPoint.isSpawnable)
+            return thisPoint.transform;
+        else
+            return transform;
+        
     }
 
 

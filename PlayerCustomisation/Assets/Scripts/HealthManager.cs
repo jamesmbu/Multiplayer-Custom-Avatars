@@ -5,22 +5,36 @@ using Photon.Pun;
 using Photon.Realtime;
 public class HealthManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private PlayerMaster playerMaster;
     [SerializeField] private PhotonView View;
     private float Health;
     private const float MaxHealth = 100;
     // Start is called before the first frame update
     void Start()
     {
+        if (playerMaster != null)
+        {
+            playerMaster = GetComponentInParent<PlayerMaster>();
+        }
         View = GetComponent<PhotonView>();
         Health = MaxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        if (playerMaster != null)
+        {
+            playerMaster.EventModifyHealth += onDamaged;
+        }
     }
 
+    private void OnDisable()
+    {
+        if (playerMaster != null)
+        {
+            playerMaster.EventModifyHealth -= onDamaged;
+        }
+    }
     void Testing()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -30,11 +44,11 @@ public class HealthManager : MonoBehaviourPunCallbacks
     }
     public void onDamaged(float delta)
     {
-        View.RPC("onServerDamage", RpcTarget.All, delta);
+        View.RPC("OnServerDamage", RpcTarget.All, delta);
     }
 
     [PunRPC]
-    void onServerDamage(float delta)
+    void OnServerDamage(float delta)
     {
         if (!View.IsMine)
             return;
@@ -62,6 +76,6 @@ public class HealthManager : MonoBehaviourPunCallbacks
     void Die()
     {
         Debug.Log("Dead!");
-        NetworkManager.instance.Die();
+        playerMaster.Die();
     }
 }

@@ -11,8 +11,10 @@ public class InputHandler : MonoBehaviourPun
 
     private bool InFirstPerson = false;
 
+    private PlayerMaster player;
     void Start()
     {
+        player = GetComponent<PlayerMaster>();
         perspectiveChanger = GameObject.FindGameObjectWithTag("PerspectiveManager").GetComponent<PerspectiveChanger>();
     }
     // Update is called once per frame

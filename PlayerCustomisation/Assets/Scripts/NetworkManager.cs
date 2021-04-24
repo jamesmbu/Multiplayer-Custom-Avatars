@@ -8,7 +8,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using UnityEditor;
 using UnityEngine.UI;
-
+using System.IO;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -51,7 +51,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #endregion
 
     private GameObject newplayer;
-
+   [SerializeField] private PlayerSpawnManager playerSpawnManager;
     private void Awake()
     {
         instance= this;
@@ -141,27 +141,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
 
 
-        createPlayer();
+        createPlayerMaster();
 
 
 
     }
 
-    void createPlayer()
+    void createPlayerMaster()
     {
 
-        Transform spawnpoint = PlayerSpawnManager.instance.GetTransform();
-        
-        // Instantiate new player
-        newplayer = PhotonNetwork.Instantiate(player.name, spawnpoint.position,spawnpoint.rotation,0);
-        // Customise the newly spawned player - send the saved settings from the preview to the new player
-        playerPreview = GameObject.FindGameObjectWithTag("PlayerPreview");
-
-        CharacterCustomisation newPlayerCustomiser = newplayer.GetComponent<CharacterCustomisation>();
-
-        newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
-        // Hide the preview version of the player
-
+        Debug.Log("Creating Player master...");
+        /// creates a player master that manages a player such as spawns the player 
+        PhotonNetwork.Instantiate(Path.GetFileName("PlayerMaster"), Vector3.zero, Quaternion.identity);
+        PlayerMaster.instance.CallEventplayerspawn();
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
@@ -202,16 +194,4 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void Die()
-    {
-        PhotonNetwork.Destroy(newplayer);
-        StartCoroutine("RespawnPlayer");
-    }
-
-    private IEnumerator RespawnPlayer()
-    {
-
-        yield return new WaitForSeconds(5);
-        createPlayer();
-    }
 }

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerSpawnpoints : MonoBehaviour
+using Photon.Pun;
+public class PlayerSpawnpoints : MonoBehaviourPunCallbacks
 {
+    [SerializeField]private PlayerSpawnManager psm;
     public bool isSpawnable;
     void Start()
     {
         isSpawnable = true;
+        psm.PlayerSpawnedEvent += onSpawn;
     }
-
+    
     // to prevent multiple player spawning in the same spot
-   public void onSpawn()
+    [PunRPC]
+    public void onSpawn()
     {
+        Debug.Log("Delegate called onSpawn");
         isSpawnable = false;
         StartCoroutine("ResetSpawnPoint");
     }
@@ -20,6 +24,8 @@ public class PlayerSpawnpoints : MonoBehaviour
     private IEnumerator ResetSpawnPoint()
     {
         yield return new WaitForSeconds(5);
+        Debug.Log(" Time for respawnPoint " + Time.time);
         isSpawnable = true;
+        psm.PlayerSpawnedEvent -= onSpawn;
     }
 }
