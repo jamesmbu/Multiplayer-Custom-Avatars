@@ -8,12 +8,19 @@ public class PlayerController : MonoBehaviourPun
     public float tiltSpeed = 180;
     public float walkSpeed = 1;
 
+
+   float maxHealth , Health;
+
     [SerializeField]
     private Transform fpcam;    // first person camera
 
+    private Rigidbody body;
+    private PhotonView View;
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = 100;
+        Health = maxHealth;
         // Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -30,5 +37,41 @@ public class PlayerController : MonoBehaviourPun
             if (fpcam != null)
                 fpcam.Rotate(new Vector3(-tilt * tiltSpeed * Time.deltaTime, 0));
         }
+    }
+
+    public void onDamaged(float delta)
+    {
+        View.RPC("onServerDamage",RpcTarget.All,delta);
+    }
+
+    [PunRPC]
+    void onServerDamage(float delta)
+    {
+        if (!View.IsMine)
+            return;
+        ModifyHealth(-delta);
+
+        if(isDead())
+        {
+            Die();
+        }
+    }
+
+    float ModifyHealth(float delta)
+    {
+       float oldHealth = Health;
+
+        Health = Mathf.Clamp(Health + delta, 0.0f, maxHealth);
+
+        return Health - oldHealth;
+    }
+    bool isDead()
+    {
+        return (Health <= 0) ? true : false;
+    }
+
+    void Die()
+    {
+
     }
 }
