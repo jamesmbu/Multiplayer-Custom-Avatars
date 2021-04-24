@@ -14,27 +14,41 @@ public class PlayerController : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-
+        Master = GetComponentInParent<PlayerMaster>();
     }
-
+    public void OnEnable()
+    {
+        Debug.Log("master in player controller");
+        PlayerMaster.instance.EventOnPlayerDeath += onDeath;      
+    }
+    public  void OnDisable()
+    {
+        PlayerMaster.instance.EventOnPlayerDeath -= onDeath;
+    }
     // Update is called once per frame
     void Update()
     {
-
+       
         if (View.IsMine)
         {
-            StartCoroutine("countdown");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Master.CallEventModifyHealth(10);
+            }
+          // Debug.Log("is mine View");
         }
-        else 
-            Debug.Log("View not mine");
     }
 
     IEnumerator countdown()
     {
-        yield return new WaitForSeconds(2);
-        Master.CallEventModifyHealth(10);
+        yield return new WaitForSeconds(5);
+        Debug.Log("Start countdown");
+      
     }
 
-
+    void onDeath()
+    {
+        PhotonNetwork.Destroy(this.gameObject);
+    }
 
 }

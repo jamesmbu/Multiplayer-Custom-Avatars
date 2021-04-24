@@ -3,37 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-public class HealthManager : MonoBehaviourPunCallbacks
+public class HealthManager : MonoBehaviourPun
 {
-    [SerializeField] private PlayerMaster playerMaster;
-    [SerializeField] private PhotonView View;
+   [SerializeField] PlayerMaster playerMaster;
+    [SerializeField]PhotonView View;
     private float Health;
     private const float MaxHealth = 100;
     // Start is called before the first frame update
+    private void Awake()
+    {
+
+    }
     void Start()
     {
-        if (playerMaster != null)
-        {
-            playerMaster = GetComponentInParent<PlayerMaster>();
-        }
-        View = GetComponent<PhotonView>();
+        setUpRef();
         Health = MaxHealth;
     }
-
-    private void OnEnable()
+   private void OnEnable()
     {
-        if (playerMaster != null)
-        {
-            playerMaster.EventModifyHealth += onDamaged;
-        }
+            Debug.Log("master in player Health");
+            PlayerMaster.instance.EventModifyHealth += onDamaged;       
     }
 
     private void OnDisable()
     {
-        if (playerMaster != null)
-        {
-            playerMaster.EventModifyHealth -= onDamaged;
-        }
+       
+            PlayerMaster.instance.EventModifyHealth -= onDamaged;
+    }
+
+    void setUpRef()
+    {
+        playerMaster = GetComponentInParent<PlayerMaster>();
+        View = GetComponent<PhotonView>();
     }
     void Testing()
     {
@@ -44,6 +45,7 @@ public class HealthManager : MonoBehaviourPunCallbacks
     }
     public void onDamaged(float delta)
     {
+        Debug.Log("OnDamage: "+ delta);
         View.RPC("OnServerDamage", RpcTarget.All, delta);
     }
 
@@ -68,14 +70,12 @@ public class HealthManager : MonoBehaviourPunCallbacks
 
         return Health - oldHealth;
     }
-    bool isDead()
-    {
-        return (Health <= 0) ? true : false;
-    }
+    bool isDead() { return (Health <= 0) ? true : false; }
+    
 
     void Die()
     {
-        Debug.Log("Dead!");
-        playerMaster.Die();
+       // Debug.Log("Dead!");
+        playerMaster.CallEventOnPlayerDeath();
     }
 }

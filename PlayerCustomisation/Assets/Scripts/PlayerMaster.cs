@@ -17,13 +17,15 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
     public event HealthModifyer EventModifyHealth;
 
     [SerializeField] private PlayerSpawnManager playerSpawnManager;
-    [SerializeField] private GameObject playerPreview; 
-   
+    [SerializeField] private GameObject playerPreview;
+
+    NetworkManager network;
     PhotonView View;
     GameObject Thisplayer;
-
+    GameObject testing;
     private void Awake()
     {
+        network = FindObjectOfType<NetworkManager>().GetComponent<NetworkManager>();
         instance = this;
         View = GetComponent<PhotonView>();
         playerSpawnManager = FindObjectOfType<PlayerSpawnManager>().GetComponent<PlayerSpawnManager>();
@@ -32,7 +34,6 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
     {
         if(EventSpawnPlayer != null)
         {
-
             EventSpawnPlayer();
         }
     }
@@ -61,23 +62,27 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
 
     private void OnEnable()
     {
-            EventSpawnPlayer += CreateThisPlayer;
+       
+        EventSpawnPlayer += CreateThisPlayer;
+        EventOnPlayerDeath += Die;
     }
     private void OnDisable()
     {
-            EventSpawnPlayer -= CreateThisPlayer;
+       EventSpawnPlayer -= CreateThisPlayer;
+        EventOnPlayerDeath -= Die;
     }
     void CreateThisPlayer()
     {
-        Transform spawnpoint = PlayerSpawnManager.instance.GetTransform();
-        Debug.Log("spawn pos: " + spawnpoint.position+ "Spawn rot :" + spawnpoint.rotation);
-       
-        // Instantiate new player
-       Thisplayer = PhotonNetwork.Instantiate(NetworkManager.instance.player.name, spawnpoint.position, spawnpoint.rotation, 0, new object[] { View.ViewID });
-       Thisplayer.transform.SetParent(transform);
 
+        Transform spawnpoint = PlayerSpawnManager.instance.GetTransform();
+        //  Debug.Log("spawn pos: " + spawnpoint.position+ "Spawn rot :" + spawnpoint.rotation);
+        Thisplayer = null;
+        // Instantiate new player
+        Thisplayer = PhotonNetwork.Instantiate(Path.GetFileName("PlayerController"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { View.ViewID });
+        Thisplayer.transform.SetParent(transform);
+       
         // Customise the newly spawned player - send the saved settings from the preview to the new player
-        playerPreview = NetworkManager.instance.playerPreview;
+        playerPreview =network.playerPreview;
 
         CharacterCustomisation newPlayerCustomiser = Thisplayer.GetComponent<CharacterCustomisation>();
         newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
@@ -85,15 +90,15 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
         playerSpawnManager.CallEventPLayerSpawn();
     }
 
+
     public void Die()
     {
-        PhotonNetwork.Destroy(Thisplayer);
-        StartCoroutine("RespawnPlayer");
+        StartCoroutine("RespawnPlayer");   
     }
 
     private IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(5);
-        CreateThisPlayer();
+        CallEventplayerspawn();
     }
 }

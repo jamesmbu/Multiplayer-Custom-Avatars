@@ -140,20 +140,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         scoreText.transform.parent.gameObject.SetActive(true);
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
 
-
         createPlayerMaster();
-
-
-
     }
 
+    // creates a player master that manages a player such as spawns the player 
     void createPlayerMaster()
     {
-
         Debug.Log("Creating Player master...");
-        /// creates a player master that manages a player such as spawns the player 
         PhotonNetwork.Instantiate(Path.GetFileName("PlayerMaster"), Vector3.zero, Quaternion.identity);
-        PlayerMaster.instance.CallEventplayerspawn();
+        PlayerMaster master = FindObjectOfType<PlayerMaster>().GetComponent<PlayerMaster>();
+        master.CallEventplayerspawn();
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
