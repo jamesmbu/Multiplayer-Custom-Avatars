@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        onDamaged(25);
+        
         if (View.IsMine)
         {
             
@@ -45,9 +45,18 @@ public class PlayerController : MonoBehaviourPun
             transform.Rotate(new Vector3(0, turn * turnSpeed * Time.deltaTime, 0));
             if (fpcam != null)
                 fpcam.Rotate(new Vector3(-tilt * tiltSpeed * Time.deltaTime, 0));
+            Testing();
 
+
+
+        }
+    }
+
+    void Testing()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             onDamaged(25);
-
         }
     }
 
@@ -62,7 +71,7 @@ public class PlayerController : MonoBehaviourPun
         if (!View.IsMine)
             return;
         ModifyHealth(-delta);
-        Debug.Log("Health: " + ModifyHealth(-delta));
+        Debug.Log("Health: " + Health);
         if(isDead())
         {
             Die();
