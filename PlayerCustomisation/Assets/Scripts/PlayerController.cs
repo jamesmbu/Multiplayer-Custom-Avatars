@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPun
     [SerializeField]
     private PhotonView View;
 
+
     private void Awake()
     {
         View = GetComponent<PhotonView>();
@@ -45,55 +46,10 @@ public class PlayerController : MonoBehaviourPun
             transform.Rotate(new Vector3(0, turn * turnSpeed * Time.deltaTime, 0));
             if (fpcam != null)
                 fpcam.Rotate(new Vector3(-tilt * tiltSpeed * Time.deltaTime, 0));
-            Testing();
-
-
-
         }
     }
 
-    void Testing()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            onDamaged(25);
-        }
-    }
 
-    public void onDamaged(float delta)
-    {
-        View.RPC("onServerDamage",RpcTarget.All,delta);
-    }
 
-    [PunRPC]
-    void onServerDamage(float delta)
-    {
-        if (!View.IsMine)
-            return;
-        ModifyHealth(-delta);
-        Debug.Log("Health: " + Health);
-        if(isDead())
-        {
-            Die();
-        }
-    }
 
-    float ModifyHealth(float delta)
-    {
-       float oldHealth = Health;
-
-        Health = Mathf.Clamp(Health + delta, 0.0f, maxHealth);
-
-        return Health - oldHealth;
-    }
-    bool isDead()
-    {
-        return (Health <= 0) ? true : false;
-    }
-
-    void Die()
-    {
-        Debug.Log("Dead!");
-        NetworkManager.instance.Die();
-    }
 }

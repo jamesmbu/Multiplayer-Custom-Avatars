@@ -2083,6 +2083,7 @@ GameObject:
   - component: {fileID: 7858154520879500207}
   - component: {fileID: 3844774234754659258}
   - component: {fileID: 3025357959357422741}
+  - component: {fileID: 6747118098620508471}
   m_Layer: 3
   m_Name: Custom simple human_prefab
   m_TagString: Untagged
@@ -2323,6 +2324,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   scoreTextRef: {fileID: 0}
+--- !u!114 &6747118098620508471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894916820800445017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b720604959d856e47afe10ae3ec57333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  View: {fileID: 0}
 --- !u!1 &8894916820845332554
 GameObject:
   m_ObjectHideFlags: 0
