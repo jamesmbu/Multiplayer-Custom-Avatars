@@ -2202,7 +2202,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8894916820800445017}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fd677348a8575448878331efedc1318, type: 3}
   m_Name: 
@@ -2210,7 +2210,8 @@ MonoBehaviour:
   turnSpeed: 180
   tiltSpeed: 180
   walkSpeed: 1
-  fpcam: {fileID: 0}
+  fpcam: {fileID: 4638448260626711624}
+  View: {fileID: 8894916820800445018}
 --- !u!114 &-7988782055696439759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2261,7 +2262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8894916820800445017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 435e43a0b7cb5674e816dc6e49565cfb, type: 3}
   m_Name: 

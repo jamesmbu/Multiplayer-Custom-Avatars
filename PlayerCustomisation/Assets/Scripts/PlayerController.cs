@@ -15,20 +15,29 @@ public class PlayerController : MonoBehaviourPun
     private Transform fpcam;    // first person camera
 
     private Rigidbody body;
+    [SerializeField]
     private PhotonView View;
+
+    private void Awake()
+    {
+        View = GetComponent<PhotonView>();
+    }
     // Start is called before the first frame update
     void Start()
     {
         maxHealth = 100;
         Health = maxHealth;
+      
         // Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
+        onDamaged(25);
+        if (View.IsMine)
         {
+            
             float forward = Input.GetAxis("Vertical");
             float turn = Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X");
             float tilt = Input.GetAxis("Mouse Y");
@@ -36,6 +45,9 @@ public class PlayerController : MonoBehaviourPun
             transform.Rotate(new Vector3(0, turn * turnSpeed * Time.deltaTime, 0));
             if (fpcam != null)
                 fpcam.Rotate(new Vector3(-tilt * tiltSpeed * Time.deltaTime, 0));
+
+            onDamaged(25);
+
         }
     }
 
@@ -50,7 +62,7 @@ public class PlayerController : MonoBehaviourPun
         if (!View.IsMine)
             return;
         ModifyHealth(-delta);
-
+        Debug.Log("Health: " + ModifyHealth(-delta));
         if(isDead())
         {
             Die();
@@ -72,6 +84,7 @@ public class PlayerController : MonoBehaviourPun
 
     void Die()
     {
-
+        Debug.Log("Dead!");
+        NetworkManager.instance.Die();
     }
 }

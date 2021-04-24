@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkManager instance;
+  
     #region Fields
     [SerializeField]
     private PerspectiveChanger perspectiveChanger;
@@ -48,6 +50,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
+    private GameObject newplayer;
+
+    private void Awake()
+    {
+        instance= this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -131,22 +139,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         buttonLeave.gameObject.SetActive(true);
         scoreText.transform.parent.gameObject.SetActive(true);
         perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameTop);
-        
 
+
+        createPlayer();
+
+
+
+    }
+
+    void createPlayer()
+    {
+        Debug.Log("charater created");
         // Instantiate new player
-        GameObject newPlayer = PhotonNetwork.Instantiate(player.name,
+        newplayer = PhotonNetwork.Instantiate(player.name,
             new Vector3(Random.Range(-15, 15), 1, Random.Range(15, 35)),
             Quaternion.Euler(0, 180/*Random.Range(-180, 180)*/, 0)
             , 0);
         // Customise the newly spawned player - send the saved settings from the preview to the new player
         playerPreview = GameObject.FindGameObjectWithTag("PlayerPreview");
-        
-        CharacterCustomisation newPlayerCustomiser = newPlayer.GetComponent<CharacterCustomisation>();
+
+        CharacterCustomisation newPlayerCustomiser = newplayer.GetComponent<CharacterCustomisation>();
 
         newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
         // Hide the preview version of the player
-        
-        
 
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
@@ -188,4 +203,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void Die()
+    {
+        PhotonNetwork.Destroy(newplayer);
+        StartCoroutine("RespawnPlayer");
+    }
+
+    private IEnumerator RespawnPlayer()
+    {
+
+        yield return new WaitForSeconds(5);
+        createPlayer();
+    }
 }
