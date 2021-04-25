@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviourPun,Damage
     PlayerMaster Master;
     PhotonView View;
     [SerializeField ]Props gun;
+   
     private void Awake()
     {
         Master = GetComponentInParent<PlayerMaster>();
@@ -20,19 +21,19 @@ public class PlayerController : MonoBehaviourPun,Damage
     public void OnEnable()
     {
         Debug.Log("master in player controller");
-        PlayerMaster.instance.EventOnPlayerDeath += onDeath;      
+        PlayerMaster.instance.EventOnPlayerDeath += onDeath;
+      
     }
     public  void OnDisable()
     {
         PlayerMaster.instance.EventOnPlayerDeath -= onDeath;
+
     }
     // Update is called once per frame
     void Update()
     {
-       
         if (View.IsMine)
         {
-
             if (Input.GetMouseButtonDown(0))
             {
                 gun.onUse();
