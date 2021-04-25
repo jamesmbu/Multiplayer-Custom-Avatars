@@ -49,8 +49,8 @@ Canvas:
   m_GameObject: {fileID: 119597971563896752}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 7775394513394507005}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8894916820559624319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f1a3785becbe8a40a0c21e7e5134cf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b4a7b48775615640b86799c49527be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   propsInfo: {fileID: 11400000, guid: 7ed0376e34c4ef74bb175add8e5154e5, type: 2}
@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd677348a8575448878331efedc1318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 667019897907651891}
+  gun: {fileID: 0}
 --- !u!114 &-7988782055696439759
 MonoBehaviour:
   m_ObjectHideFlags: 0

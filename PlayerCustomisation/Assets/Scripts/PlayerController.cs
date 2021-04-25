@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviourPun,Damage
     PlayerMaster Master;
     PhotonView View;
     [SerializeField ]Props gun;
-   
     private void Awake()
     {
         Master = GetComponentInParent<PlayerMaster>();
@@ -34,6 +33,7 @@ public class PlayerController : MonoBehaviourPun,Damage
     {
         if (View.IsMine)
         {
+
             if (Input.GetMouseButtonDown(0))
             {
                 gun.onUse();
