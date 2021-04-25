@@ -1043,6 +1043,7 @@ MonoBehaviour:
   LobbyNameButtonContent: {fileID: 1901058035}
   LobbyRoomScreen: Lobby
   StartMatchRequirement: 1
+  MatchScore: 20
 --- !u!114 &495414361
 MonoBehaviour:
   m_ObjectHideFlags: 0

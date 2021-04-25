@@ -115,8 +115,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Creating Player master...");
         PhotonNetwork.Instantiate(Path.GetFileName("PlayerMaster"), Vector3.zero, Quaternion.identity);
-        PlayerMaster master = FindObjectOfType<PlayerMaster>().GetComponent<PlayerMaster>();
-        master.CallEventplayerspawn();
+        PlayerMaster.instance.CallEventplayerspawn();
     }
     public void OnPlayerScore(int score)
     {
