@@ -9,6 +9,7 @@ using ExitGames.Client.Photon;
 using UnityEditor;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -159,7 +160,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log("Starting game...");
             matchInProgress = true;
             Gameplay_ObjectSpawner.enabled = true;
-            
         }
     }
 
@@ -184,10 +184,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (score >= MatchScore)
         {
             status.text = "You win!";
+            DisconnectPlayer();
+            
             //scoreText.GetComponent<TemporaryOnScreen>().ShowTempText("You Win!");
             matchInProgress = false;
             Gameplay_ObjectSpawner.enabled = false;
         }
     }
+    
+    public void DisconnectPlayer()
+    {
+        StartCoroutine(DisconnectAndLoad());
+    }
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.LeaveRoom();
 
+        while (PhotonNetwork.InRoom)
+            yield return null;
+
+        SceneManager.LoadScene(0);
+    }
 }

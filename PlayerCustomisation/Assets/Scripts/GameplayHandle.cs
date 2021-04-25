@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameplayHandle : MonoBehaviourPun
 {
+
     [SerializeField] private int score = 0;
 
     [SerializeField] private Text scoreTextRef;
