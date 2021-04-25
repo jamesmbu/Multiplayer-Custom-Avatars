@@ -63,7 +63,7 @@ public class Gun : AWeapon
 		if (colliders.Length != 0)
 		{
 
-			GameObject bulletImpactObj = Instantiate(EnemyHitEffectPrefab, hitPosition + hitTransform * 0.001f, Quaternion.LookRotation(hitTransform, Vector3.up) * EnemyHitEffectPrefab.transform.rotation);
+			GameObject bulletImpactObj = Instantiate(defaultHitEffectPrefab, hitPosition + hitTransform * 0.001f, Quaternion.LookRotation(hitTransform, Vector3.up) * defaultHitEffectPrefab.transform.rotation);
 			Destroy(bulletImpactObj, 10f);
 			bulletImpactObj.transform.SetParent(colliders[0].transform);
 		}
