@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class MWeapon : AWeapon
 {
+    public override void onUse()
+    {
+        Attack();
+    }
+    void Attack()
+    {
+
+    }
     // Start is called before the first frame update
     void Start()
     {

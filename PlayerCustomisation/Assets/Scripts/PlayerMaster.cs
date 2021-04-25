@@ -13,8 +13,13 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
     public event PlayerMasterEvent EventChangeToTopDownview;
     public event PlayerMasterEvent EventOnPlayerDeath;
 
-    public delegate void HealthModifyer(float delta);
-    public event HealthModifyer EventModifyHealth;
+    public delegate void Modifyer(float delta);
+    public event Modifyer EventModifyHealth;
+    public event Modifyer EventDamageTaken;
+
+    public delegate void GunFire(RaycastHit hitPosition, Transform hitTransform);
+    public event GunFire EventShotDefault;
+    public event GunFire EventShotEnemy;
 
     [SerializeField] private PlayerSpawnManager playerSpawnManager;
     [SerializeField] private GameObject playerPreview;
@@ -37,6 +42,14 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
             EventSpawnPlayer();
         }
     }
+    public void CallEventDamageTake(float delta)
+    {
+        if(EventDamageTaken!= null)
+        {
+            EventDamageTaken(delta);
+        }
+    }
+
     public void CallEventOnPlayerDeath()
     {
         if (EventOnPlayerDeath != null)
@@ -59,6 +72,19 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
         if (EventModifyHealth != null)
             EventModifyHealth(delta);
     }
+    public void CallEventShotDefault(RaycastHit hPos, Transform hTransform)
+    {
+        if (EventShotDefault != null)
+            EventShotDefault(hPos,hTransform);
+    }
+    public void CallEventShotEnemy(RaycastHit hPos, Transform hTransform)
+    {
+        
+        if (EventShotEnemy != null)
+            EventShotEnemy(hPos,hTransform);
+    }
+
+
 
     private void OnEnable()
     {

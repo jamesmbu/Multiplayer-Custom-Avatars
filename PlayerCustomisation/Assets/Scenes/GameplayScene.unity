@@ -589,6 +589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeaderBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 1113378981039999891, guid: 6577f2b92b4684d4db9b453de3758783, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1113378981478551681, guid: 6577f2b92b4684d4db9b453de3758783, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -895,7 +899,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6965379177218725568, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
   m_PrefabInstance: {fileID: 6965379177361275830}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 142814580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5840e0faa3d04f48973c335c3498f4f, type: 3}
@@ -1776,9 +1780,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 878575105}
+  - component: {fileID: 878575106}
   - component: {fileID: 878575104}
   - component: {fileID: 878575103}
-  - component: {fileID: 878575106}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1795,7 +1799,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 878575102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee6439291c036b43983b163cc7170cd, type: 3}
+  m_Script: {fileID: 11500000, guid: ae80336b087a33647bbc2910dddc9473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &878575104
@@ -1807,9 +1811,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 878575102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38792ab981974244a8d7094cd0027e9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1810c264fcc080c49b623754eccb842c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perspectiveChanger: {fileID: 1061788033}
+  customiserCanvas: {fileID: 1144237767}
+  StartMatchRequirement: 2
+  MatchScore: 20
+  player: {fileID: 8894916820800445017, guid: 5230e6b24284a6f4ea069bf6e6b7ef9c, type: 3}
+  playerPreview: {fileID: 6965379177218725570, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
+  Gameplay_ObjectSpawner: {fileID: 890548137}
+  PlayersNames: []
+  PlayersNameText: []
+  PlayerScore: 
+  PlayerScoreText: []
+  scoreOrder: []
+  scoreText: {fileID: 312133712}
+  bigStatusText: {fileID: 0}
+  buttonPlay: {fileID: 685664453}
+  buttonLeave: {fileID: 1476138429}
+  playerSpawnManager: {fileID: 175186220}
 --- !u!4 &878575105
 Transform:
   m_ObjectHideFlags: 0
@@ -4509,7 +4530,7 @@ PrefabInstance:
       objectReference: {fileID: 142814582}
     - target: {fileID: 5301776207278784883, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -199.6992
+      value: -199.69922
       objectReference: {fileID: 0}
     - target: {fileID: 5301776207290767621, guid: 2619c22a268b8c44b9fccff2067fd050, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4666,7 +4687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965379177559611318, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6965379177559611318, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4707,10 +4728,6 @@ PrefabInstance:
     - target: {fileID: 6965379177559611318, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.y
-      value: 55.11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fa6428ecc7f77439ba173b62fd37db, type: 3}
