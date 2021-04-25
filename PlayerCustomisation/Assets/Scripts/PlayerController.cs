@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
-public class PlayerController : MonoBehaviourPun,Damage
+public class PlayerController : MonoBehaviourPun
 {
     PlayerMaster Master;
     PhotonView View;
-    [SerializeField ]Props gun;
     private void Awake()
     {
         Master = GetComponentInParent<PlayerMaster>();
@@ -32,11 +31,11 @@ public class PlayerController : MonoBehaviourPun,Damage
        
         if (View.IsMine)
         {
-
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                gun.onUse();
+                Master.CallEventModifyHealth(10);
             }
+          // Debug.Log("is mine View");
         }
     }
 
@@ -52,8 +51,4 @@ public class PlayerController : MonoBehaviourPun,Damage
         PhotonNetwork.Destroy(this.gameObject);
     }
 
-    public void TakeDamage(float damage)
-    {
-        Master.CallEventModifyHealth(damage);
-    }
 }

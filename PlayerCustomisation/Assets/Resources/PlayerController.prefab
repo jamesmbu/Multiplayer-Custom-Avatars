@@ -1251,7 +1251,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8894916820559624318}
   - component: {fileID: 8894916820559624313}
-  - component: {fileID: 667019897907651891}
   m_Layer: 3
   m_Name: glock
   m_TagString: Untagged
@@ -1351,24 +1350,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0032234616, y: 0.0058101816, z: 0.0016368832}
     m_Extent: {x: 0.0019798856, y: 0.0030114248, z: 0.0010688032}
   m_DirtyAABB: 0
---- !u!114 &667019897907651891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8894916820559624319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f1a3785becbe8a40a0c21e7e5134cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMaster: {fileID: 0}
-  cam: {fileID: 0}
-  damage: 0
-  rateofFire: 0.25
-  defaultHitEffect: {fileID: 0}
-  enemyHitEffect: {fileID: 0}
 --- !u!1 &8894916820564282439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,6 +2200,8 @@ MonoBehaviour:
   - {fileID: 8894916821282039605}
   Prop:
   - {fileID: 8894916820559624319}
+  - {fileID: 8894916820526577661}
+  - {fileID: 8894916820570767360}
   skinTexture: []
   beardTextures: []
   hair_a_textures: []
@@ -2262,7 +2245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd677348a8575448878331efedc1318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 667019897907651891}
 --- !u!114 &-7988782055696439759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2313,7 +2295,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8894916820800445017}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 435e43a0b7cb5674e816dc6e49565cfb, type: 3}
   m_Name: 
@@ -2348,7 +2330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8894916820800445017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5f451a9f3eff7a4c8a1ea0d4b521b47, type: 3}
   m_Name: 

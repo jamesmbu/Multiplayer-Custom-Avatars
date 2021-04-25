@@ -17,7 +17,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Transform LobbyNameButtonContent;
     public string LobbyRoomScreen;
 
-    [SerializeField] [Tooltip("Number of players required for game to start")] private int StartMatchRequirement = 2;
     private void Start()
     {
         Instance = this;
@@ -30,8 +29,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
     void StartGame()
     {
-
-        if(PhotonNetwork.IsMasterClient && PhotonNetwork.CountOfPlayersInRooms >= StartMatchRequirement)
+        if(PhotonNetwork.IsMasterClient && PhotonNetwork.CountOfPlayersInRooms == LobbyManager.Instance.GetRoomSize())
         {
             PhotonNetwork.LoadLevel(1);
         }
@@ -89,6 +87,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Instantiate(PlayNameTextInfo, PlayerNameContent).GetComponent<PlayNameTextInfo>().OnCreate(players[i]);
         }
         // so only the Host/ master client can click this and can only be clicked when Roomsize it met
-        StartButton.SetActive(PhotonNetwork.IsMasterClient && players.Count() >= StartMatchRequirement);
+        StartButton.SetActive(PhotonNetwork.IsMasterClient && PhotonNetwork.CountOfPlayersInRooms == LobbyManager.Instance.GetRoomSize());
     }
 }
