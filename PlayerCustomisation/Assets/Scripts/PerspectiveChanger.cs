@@ -52,7 +52,21 @@ public class PerspectiveChanger : MonoBehaviour
 
         CameraRefs[indexToUse].Camera = cameraRef;
     }
+    public Camera GetCameraRef(CameraSetting cameraSetting)
+    {
+        int indexToUse = 0;
+        for (var index = 0; index < CameraRefs.Length; index++)
+        {
+            CameraRef camera = CameraRefs[index];
+            if (camera.Type == cameraSetting) // if this is the setting the programmer wants to set
+            {
+                indexToUse = index;
+                break;
+            }
+        }
 
+        return CameraRefs[indexToUse].Camera;
+    }
     public void SetCameraPerspective(CameraSetting cameraSetting)
     {
         foreach (CameraRef camera in CameraRefs) // go through each camera type programmed into the editor

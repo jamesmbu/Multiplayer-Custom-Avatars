@@ -10,18 +10,39 @@ public class InputHandler : MonoBehaviourPun
     public Vector3 MousePosition { get; private set; }
 
     private bool InFirstPerson = false;
+    private Billboard nametag_billboard;
 
     private PlayerMaster player;
     void Start()
     {
         player = GetComponent<PlayerMaster>();
         perspectiveChanger = GameObject.FindGameObjectWithTag("PerspectiveManager").GetComponent<PerspectiveChanger>();
+        nametag_billboard = GetComponentInChildren<Billboard>();
     }
     // Update is called once per frame
     void Update()
     {
         if (!photonView.IsMine)
         {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (!InFirstPerson) // Toggle into first-person
+                {
+                    InFirstPerson = true;
+
+                    nametag_billboard.SetCameraTransform(perspectiveChanger
+                        .GetCameraRef(PerspectiveChanger.CameraSetting.GameFirstPerson).transform);
+
+                }
+                else // Toggle out of first-person
+                {
+                    InFirstPerson = false;
+
+                    nametag_billboard.SetCameraTransform(perspectiveChanger
+                        .GetCameraRef(PerspectiveChanger.CameraSetting.GameTop).transform);
+
+                }
+            }
             return;
         }
         var h = Input.GetAxis("Horizontal");
