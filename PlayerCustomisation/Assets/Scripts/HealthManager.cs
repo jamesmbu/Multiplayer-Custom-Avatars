@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
+
 public class HealthManager : MonoBehaviourPun
 {
    [SerializeField] PlayerMaster playerMaster;
+    [SerializeField] Image healthbarImage;
     [SerializeField]PhotonView View;
     private float Health;
     private const float MaxHealth = 100;
@@ -55,6 +58,8 @@ public class HealthManager : MonoBehaviourPun
         if (!View.IsMine)
             return;
         ModifyHealth(-delta);
+
+        healthbarImage.fillAmount = (Health / MaxHealth);
         Debug.Log("Health: " + Health);
         if (isDead())
         {

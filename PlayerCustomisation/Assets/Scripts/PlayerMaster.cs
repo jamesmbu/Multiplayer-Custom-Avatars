@@ -4,6 +4,9 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
+using System;
+using System.Reflection;
+
 public class PlayerMaster : MonoBehaviourPunCallbacks
 {
     public static PlayerMaster instance;
@@ -19,13 +22,13 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerSpawnManager playerSpawnManager;
     [SerializeField] private GameObject playerPreview;
 
-    NetworkManager network;
-    PhotonView View;
+    GameManager gameManager;
+      PhotonView View;
     GameObject Thisplayer;
     GameObject testing;
     private void Awake()
     {
-        network = FindObjectOfType<NetworkManager>().GetComponent<NetworkManager>();
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         instance = this;
         View = GetComponent<PhotonView>();
         playerSpawnManager = FindObjectOfType<PlayerSpawnManager>().GetComponent<PlayerSpawnManager>();
@@ -63,14 +66,22 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
        
-        EventSpawnPlayer += CreateThisPlayer;
+        EventSpawnPlayer += OnInitialized;
         EventOnPlayerDeath += Die;
     }
     private void OnDisable()
     {
-       EventSpawnPlayer -= CreateThisPlayer;
+       EventSpawnPlayer -= OnInitialized;
         EventOnPlayerDeath -= Die;
     }
+
+    private void OnInitialized()
+    {
+        CreateThisPlayer();
+        //photonView.RPC(nameof(CreateThisPlayer), RpcTarget.All);
+    }
+
+  //  [PunRPC]
     void CreateThisPlayer()
     {
 
@@ -81,24 +92,26 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
         Thisplayer = PhotonNetwork.Instantiate(Path.GetFileName("PlayerController"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { View.ViewID });
         Thisplayer.transform.SetParent(transform);
        
+        CharacterCustomisation PlayerCustomiser = Thisplayer.GetComponent<CharacterCustomisation>();
+     
         // Customise the newly spawned player - send the saved settings from the preview to the new player
-        playerPreview =network.playerPreview;
-
-        CharacterCustomisation newPlayerCustomiser = Thisplayer.GetComponent<CharacterCustomisation>();
-        newPlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
+        playerPreview = gameManager.playerPreview;
+   
+        
+        PlayerCustomiser.ApplySavedAppearance(playerPreview.GetComponent<CharacterCustomisation>().Save_Model);
         // Hide the preview version of the player
         playerSpawnManager.CallEventPLayerSpawn();
     }
 
 
-    public void Die()
-    {
-        StartCoroutine("RespawnPlayer");   
-    }
+    public void Die()=> StartCoroutine("RespawnPlayer");   
+   
 
     private IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(5);
         CallEventplayerspawn();
     }
+
+   
 }

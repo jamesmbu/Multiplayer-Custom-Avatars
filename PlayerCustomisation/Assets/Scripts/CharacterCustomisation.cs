@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
+using System.Reflection;
+
 public class CharacterCustomisation : MonoBehaviourPun
 {
     public enum MODEL_DETAILS
@@ -33,14 +36,14 @@ public class CharacterCustomisation : MonoBehaviourPun
     public Texture[] hair_d_textures;
     public Texture[] hair_e_textures;
 
-   //hair
-    private GameObject currentHair;
+    //hair
+    public GameObject currentHair;
     private GameObject PrevHair;
     //beard
-    private GameObject currentBeard;
+    public GameObject currentBeard;
     private GameObject PrevBeard;
     //outfit
-    private GameObject currentOutfit;
+    public GameObject currentOutfit;
     private GameObject PrevOutfit;
     //prop
     public GameObject CurrentProps;
@@ -172,7 +175,7 @@ public class CharacterCustomisation : MonoBehaviourPun
             photonView.RPC("ApplyModification", RpcTarget.AllBuffered,
                 MODEL_DETAILS.PROP_MODEL, _Save_Model[MODEL_DETAILS.PROP_MODEL]);
 
-            
+            photonView.RPC(nameof(apply), RpcTarget.AllBuffered);
         }
         
     }
@@ -236,15 +239,14 @@ public class CharacterCustomisation : MonoBehaviourPun
         //GameObject.Destroy(Canvas);
         // Canvas will be hidden in the NetworkManager 'OnJoinedRoom'
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [PunRPC]
+    public void apply()
     {
-        
+        currentHair.SetActive(true);
+        currentBeard.SetActive(true);
+        currentOutfit.SetActive(true);
+        CurrentProps = Prop[0];
+        CurrentProps.SetActive(true);
     }
 }
