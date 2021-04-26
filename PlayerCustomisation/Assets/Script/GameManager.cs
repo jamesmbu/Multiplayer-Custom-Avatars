@@ -108,6 +108,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             photonView.RPC("createPlayerMaster", RpcTarget.AllBuffered);
+
+            matchInProgress = true;
+            Gameplay_ObjectSpawner.enabled = true;
+
         }
     }
 
