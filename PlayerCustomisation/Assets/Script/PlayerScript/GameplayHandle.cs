@@ -11,12 +11,12 @@ public class GameplayHandle : MonoBehaviourPun
 
     [SerializeField] private Text scoreTextRef;
 
-    private NetworkManager netManager;
+    //private NetworkManager netManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!netManager) netManager = FindObjectOfType<NetworkManager>();
+       // if (!netManager) netManager = FindObjectOfType<NetworkManager>();
     }
 
     // Update is called once per frame
@@ -42,6 +42,7 @@ public class GameplayHandle : MonoBehaviourPun
     void IncrementScore()
     {
         score++;
-        netManager.OnPlayerScore(score);
+        // netManager.OnPlayerScore(score);
+        GameManager.instance.OnPlayerScore(score);
     }
 }

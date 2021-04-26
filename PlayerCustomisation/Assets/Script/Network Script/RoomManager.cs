@@ -22,6 +22,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Instance = this;
     }
+    private void Update()
+    {
+        StartButton.SetActive(PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length >= StartMatchRequirement);
+    }
     public void EventOnClickStartButton()
     {
         StartButton.SetActive(false);
@@ -89,6 +93,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Instantiate(PlayNameTextInfo, PlayerNameContent).GetComponent<PlayNameTextInfo>().OnCreate(players[i]);
         }
         // so only the Host/ master client can click this and can only be clicked when Roomsize it met
-        StartButton.SetActive(PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length >= StartMatchRequirement);
+     
     }
 }
