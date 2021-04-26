@@ -15,4 +15,12 @@ public class GameManager_Delegates : MonoBehaviour
             EventGameStart();
         }
     }
+
+    public void CallEventGameOver()
+    {
+        if(EventGameOver != null)
+        {
+            EventGameOver();
+        }
+    }
 }

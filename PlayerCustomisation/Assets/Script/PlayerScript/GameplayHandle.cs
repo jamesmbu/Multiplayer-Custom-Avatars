@@ -45,4 +45,9 @@ public class GameplayHandle : MonoBehaviourPun
         // netManager.OnPlayerScore(score);
         GameManager.instance.OnPlayerScore(score);
     }
+
+    void onGameOver()
+    {
+        
+    }
 }

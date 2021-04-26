@@ -129,10 +129,31 @@ public class GameManager : MonoBehaviourPunCallbacks
         // check if the score is enough to end the match
         if (score >= MatchScore)
         {
-          //  status.text = "You win!";
+            delegates.CallEventGameOver();
             //scoreText.GetComponent<TemporaryOnScreen>().ShowTempText("You Win!");
             matchInProgress = false;
             Gameplay_ObjectSpawner.enabled = false;
         }
+    }
+
+    void GameOver()
+    {
+        // Game over screen
+        // UI - maybe a scoreboard
+        
+        StartCoroutine(nameof(leavingRoom));
+
+    }
+
+    IEnumerator leavingRoom()
+    {
+        yield return new WaitForSeconds(5);
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.LoadLevel(0);
     }
 }
