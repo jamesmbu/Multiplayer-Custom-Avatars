@@ -18,6 +18,8 @@ public class InputHandler : MonoBehaviourPun
         player = GetComponent<PlayerMaster>();
         perspectiveChanger = GameObject.FindGameObjectWithTag("PerspectiveManager").GetComponent<PerspectiveChanger>();
         nametag_billboard = GetComponentInChildren<Billboard>();
+        perspectiveChanger.SetCameraValue(PerspectiveChanger.CameraSetting.GameFirstPerson,
+            transform.Find("FirstPersonCamera").GetComponent<Camera>());
     }
     // Update is called once per frame
     void Update()
@@ -54,8 +56,8 @@ public class InputHandler : MonoBehaviourPun
             if (!InFirstPerson) // Toggle into first-person
             {
                 InFirstPerson = true;
-                perspectiveChanger.SetCameraValue(PerspectiveChanger.CameraSetting.GameFirstPerson,
-                    transform.Find("FirstPersonCamera").GetComponent<Camera>());
+                //perspectiveChanger.SetCameraValue(PerspectiveChanger.CameraSetting.GameFirstPerson,
+                //    transform.Find("FirstPersonCamera").GetComponent<Camera>());
                 perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameFirstPerson);
                 // Change movement handler
                 GetComponent<TopDownCharacterMovement>().enabled = false;

@@ -1807,6 +1807,7 @@ MonoBehaviour:
   - Type: 3
     Camera: {fileID: 2066999683}
   NetworkCanvas: {fileID: 1874928995}
+  InitialCamera: 0
 --- !u!4 &1061788034
 Transform:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class PerspectiveChanger : MonoBehaviour
     [SerializeField]
     private Canvas NetworkCanvas;
 
+    [SerializeField] private CameraSetting InitialCamera = CameraSetting.Menu;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,10 @@ public class PerspectiveChanger : MonoBehaviour
         
     }
 
+    public void SetToInitialCamera()
+    {
+        SetCameraPerspective(CameraSetting.GameFirstPerson);
+    }
     public void SetCameraValue(CameraSetting cameraSetting, Camera cameraRef)
     {
         int indexToUse = 0;

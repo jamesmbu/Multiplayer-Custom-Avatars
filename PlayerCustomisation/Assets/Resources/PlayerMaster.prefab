@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cccf8a156e3f7674facd580c3bb7b505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perspectiveChanger: {fileID: 0}
   playerSpawnManager: {fileID: 0}
   playerPreview: {fileID: 0}
 --- !u!114 &4984466132095586641

@@ -6,6 +6,7 @@ using Photon.Realtime;
 using System.IO;
 public class PlayerMaster : MonoBehaviourPunCallbacks
 {
+    public PerspectiveChanger perspectiveChanger;
     public static PlayerMaster instance;
     public delegate void PlayerMasterEvent();
     public event PlayerMasterEvent EventSpawnPlayer;
@@ -35,6 +36,7 @@ public class PlayerMaster : MonoBehaviourPunCallbacks
         if(EventSpawnPlayer != null)
         {
             EventSpawnPlayer();
+            perspectiveChanger.SetCameraPerspective(PerspectiveChanger.CameraSetting.GameFirstPerson);
         }
     }
     public void CallEventOnPlayerDeath()
